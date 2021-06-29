@@ -1,9 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {FirebaseModule} from './features/firebase.module';
+import {FirebaseModule} from './shared/firebase.module';
+import {NgrxModule} from './shared/ngrx.module';
 
 @NgModule({
   declarations: [
@@ -11,8 +13,10 @@ import {FirebaseModule} from './features/firebase.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FirebaseModule,
+    NgrxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
