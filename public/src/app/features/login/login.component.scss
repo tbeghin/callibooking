@@ -1,9 +1,21 @@
-.container {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+.logos {
+  img {
+    width: 12rem;
+  }
 }
 
 .presentation {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    display: flex;
+    text-align: center;
+  }
+
+  p {
+    display: flex;
+    text-align: justify;
+  }
 }

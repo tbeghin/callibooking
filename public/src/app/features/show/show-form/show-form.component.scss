@@ -1,0 +1,17 @@
+.container {
+  .form-create {
+    align-content: center;
+
+    .form-select {
+      align-items: center;
+
+      .add-button {
+        margin-left: 1rem;
+      }
+    }
+
+    .action {
+      justify-content: center;
+    }
+  }
+}

@@ -1,28 +1,23 @@
-<section *ngIf="(shows$ | async) as shows">
-  <div *ngIf="shows.length else addShow">
+<section class="container" *ngIf="(shows$ | async) as shows">
+  <div class="mat-card-container" *ngIf="shows.length else addShow">
     <mat-card *ngFor="let show of shows">
       <mat-card-header>
-        <mat-card-title>{{show.title}}</mat-card-title>
-        <mat-card-subtitle>{{show.theater}}</mat-card-subtitle>
+        <mat-card-title>{{show.piece?.title}}</mat-card-title>
+        <mat-card-subtitle>{{show.date | firestoreDate:'dd/MM/yyyy'}}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
-        </p>
+        <p>{{show.piece?.description}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+        <button mat-button color="primary">Réserver</button>
+        <button mat-button color="accent">Modifier</button>
       </mat-card-actions>
     </mat-card>
   </div>
+  <div class="flex action">
+    <button mat-raised-button color="primary" (click)="createShow()">Ajouter un spectacle</button>
+  </div>
 </section>
 <ng-template #addShow>
-  <section>
-    <div>Aucun spectacle de prévu actuellement, veuillez en créer un nouveau</div>
-    <button mat-button>Ajouter un spectacle</button>
-  </section>
+  <h3>Aucun spectacle de prévu actuellement, veuillez en créer un nouveau</h3>
 </ng-template>

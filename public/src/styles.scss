@@ -1,4 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: url("assets/background.jpeg") no-repeat center;
+
+  .container {
+    padding: 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    bottom: 0;
+    position: absolute;
+    background: #bbbbbb;
+    width: 100%;
+    padding: 0.2rem;
+  }
+}
+
+.flex {
+  display: flex;
+
+  &-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-col {
+    display: flex;
+    flex-direction: column;
+  }
+}

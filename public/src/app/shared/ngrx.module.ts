@@ -5,7 +5,7 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import {environment} from '../../environments/environment';
-import {AuthenticationEffects, RouterEffects} from '../store/effects';
+import {AuthenticationEffects, PieceEffects, RouterEffects, ShowEffects, TheaterEffects} from '../store/effects';
 import {
   authenticationFeatureKey,
   authenticationReducers,
@@ -28,7 +28,13 @@ import {
     StoreModule.forFeature(authenticationFeatureKey, authenticationReducers),
     StoreModule.forFeature(showFeatureKey, showReducers),
     StoreRouterConnectingModule.forRoot({serializer: DefaultRouterStateSerializer}),
-    EffectsModule.forRoot([RouterEffects, AuthenticationEffects]),
+    EffectsModule.forRoot([
+      RouterEffects,
+      AuthenticationEffects,
+      ShowEffects,
+      PieceEffects,
+      TheaterEffects
+    ]),
     StoreDevtoolsModule.instrument({
       name: 'Callibooking - @ngrx DevTools',
       logOnly: environment.production,
