@@ -26,9 +26,9 @@ const allShow = createSelector(allShowWithRef, pieceSelectors.allPieces, theater
     ));
 
 const showById = createSelector(
-  allShowWithRef,
+  allShow,
   selectRouteParam('showId'),
-  (shows: ShowRequest[], currentShowId: string | undefined) => shows.find(show => show.id === currentShowId));
+  (shows: Show[], currentShowId: string | undefined) => shows.find(show => show.id === currentShowId));
 
 export const showSelectors = {
   allShowWithRef,

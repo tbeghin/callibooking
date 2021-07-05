@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from '@angular/fire/firestore';
 import {trace} from '@angular/fire/performance';
+import firebase from 'firebase';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {ShowRequest} from '../models';
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +33,13 @@ export class ShowService {
           ({id: c.payload.doc.id, ...c.payload.doc.data()})
         )),
       trace('getShows'),
+    );
+  }
+
+  getById(showId: string): Observable<ShowRequest> {
+    return this.dbCollection.doc(showId).get().pipe(
+      map((changes: DocumentSnapshot<ShowRequest>) => ({id: changes.id, ...changes.data()}) as ShowRequest),
+      trace('getPieceById'),
     );
   }
 

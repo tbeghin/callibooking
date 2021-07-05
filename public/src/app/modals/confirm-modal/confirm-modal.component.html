@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Supprimer le spectacle</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Êtes-vous sûr de vouloir supprimer ce spectacle ?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="warn" mat-dialog-close [mat-dialog-close]="null">Annuler</button>
+  <button mat-button color="primary" [mat-dialog-close]="data">Supprimer</button>
+</mat-dialog-actions>

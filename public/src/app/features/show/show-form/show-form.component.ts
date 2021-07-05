@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {ShowState} from '../../../store/reducers';
-import {showActions} from '../../../store/actions';
 import {Piece, Show, Theater} from '../../../models';
+import {showActions} from '../../../store/actions';
+import {ShowState} from '../../../store/reducers';
 import {pieceSelectors} from '../../../store/selectors/piece.selectors';
 import {theaterSelectors} from '../../../store/selectors/theater.selectors';
 
@@ -14,6 +14,7 @@ import {theaterSelectors} from '../../../store/selectors/theater.selectors';
   styleUrls: ['./show-form.component.scss']
 })
 export class ShowFormComponent implements OnInit {
+  show$: Observable<Show | undefined> | undefined;
   selectPieceDisabled: boolean;
   selectTheaterDisabled: boolean;
   pieces$: Observable<Piece[]>;

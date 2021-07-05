@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
 import {EMPTY} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ConfirmModalComponent} from '../../modals/confirm-modal/confirm-modal.component';
@@ -11,6 +12,7 @@ import {PieceService} from '../../services/piece.service';
 import {ShowService} from '../../services/show.service';
 import {TheaterService} from '../../services/theater.service';
 import {routerActions, showActions} from '../actions';
+import {RouterState} from '../reducers';
 
 @Injectable()
 export class ShowEffects {
@@ -65,6 +67,7 @@ export class ShowEffects {
 
   constructor(
     private readonly actions$: Actions,
+    private readonly routerStore: Store<RouterState>,
     private readonly pieceService: PieceService,
     private readonly theaterService: TheaterService,
     private readonly showService: ShowService,
