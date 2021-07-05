@@ -41,11 +41,16 @@ export class ShowService {
         map(() => show)
       );
     } else {
-      console.log(show);
       return from(this.dbCollection.add({...show})).pipe(
         trace('saveShow'),
         map(() => show)
       );
     }
+  }
+
+  deleteShow(id: string): Observable<void> {
+    return from(this.dbCollection.doc(id).delete()).pipe(
+      trace('delete show'),
+    );
   }
 }

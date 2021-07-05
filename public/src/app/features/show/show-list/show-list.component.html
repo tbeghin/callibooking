@@ -1,8 +1,16 @@
 <section class="container" *ngIf="(shows$ | async) as shows">
+  <div class="flex action">
+    <button mat-raised-button color="primary" (click)="createShow()">Ajouter un spectacle</button>
+  </div>
   <div class="mat-card-container" *ngIf="shows.length else addShow">
     <mat-card *ngFor="let show of shows">
       <mat-card-header>
-        <mat-card-title>{{show.piece?.title}}</mat-card-title>
+        <mat-card-title>
+          <span>{{show.piece?.title}}</span>
+          <button mat-icon-button color="warn" (click)="deleteShow(show.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-title>
         <mat-card-subtitle>{{show.date | firestoreDate:'dd/MM/yyyy'}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -13,9 +21,6 @@
         <button mat-button color="accent">Modifier</button>
       </mat-card-actions>
     </mat-card>
-  </div>
-  <div class="flex action">
-    <button mat-raised-button color="primary" (click)="createShow()">Ajouter un spectacle</button>
   </div>
 </section>
 <ng-template #addShow>

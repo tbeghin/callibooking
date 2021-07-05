@@ -10,51 +10,51 @@
     <div class="flex-row form-select">
       <mat-form-field>
         <mat-label>Sélectionner la pièce</mat-label>
-        <mat-select>
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+        <mat-select [formControl]="pieceCtrl">
+          <mat-option [value]="null">-</mat-option>
+          <mat-option *ngFor="let piece of pieces$ | async" [value]="piece">{{piece.title}}</mat-option>
         </mat-select>
       </mat-form-field>
       <div class="add-button">
-        <button mat-mini-fab color="primary" (click)="showNewPiece = !showNewPiece" *ngIf="!showNewPiece">
+        <button mat-mini-fab color="primary" (click)="showAdd(true, null, pieceCtrl)" *ngIf="!selectPieceDisabled">
           <mat-icon>add</mat-icon>
         </button>
-        <button mat-mini-fab color="primary" (click)="showNewPiece = !showNewPiece" *ngIf="showNewPiece">
+        <button mat-mini-fab color="primary" (click)="showAdd(false,null,pieceCtrl)" *ngIf="selectPieceDisabled">
           <mat-icon>remove</mat-icon>
         </button>
       </div>
     </div>
-    <div *ngIf="showNewPiece" class="flex-col">
+    <div *ngIf="selectPieceDisabled" class="flex-col">
       <mat-form-field>
         <mat-label>Titre de la pièce</mat-label>
-        <input matInput type="text" [formControl]="pieceTitleControl">
+        <input matInput type="text" [formControl]="pieceTitleCtrl">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput [formControl]="pieceDescriptionControl"></textarea>
+        <textarea matInput [formControl]="pieceDescriptionCtrl"></textarea>
       </mat-form-field>
     </div>
     <div class="flex-row form-select">
       <mat-form-field>
         <mat-label>Sélectionner le théâtre</mat-label>
-        <mat-select>
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+        <mat-select [formControl]="theaterCtrl">
+          <mat-option [value]="null">-</mat-option>
+          <mat-option *ngFor="let theater of theater$ | async" [value]="theater">{{theater.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <div class="add-button">
-        <button mat-mini-fab color="primary" (click)="showNewTheater = !showNewTheater" *ngIf="!showNewTheater">
+        <button mat-mini-fab color="primary" (click)="showAdd(null, true, theaterCtrl)" *ngIf="!selectTheaterDisabled">
           <mat-icon>add</mat-icon>
         </button>
-        <button mat-mini-fab color="primary" (click)="showNewTheater = !showNewTheater" *ngIf="showNewTheater">
+        <button mat-mini-fab color="primary" (click)="showAdd(null, false, theaterCtrl)" *ngIf="selectTheaterDisabled">
           <mat-icon>remove</mat-icon>
         </button>
       </div>
     </div>
-    <div *ngIf="showNewTheater" class="flex-col">
+    <div *ngIf="selectTheaterDisabled" class="flex-col">
       <mat-form-field>
         <mat-label>Nom de la salle</mat-label>
-        <input matInput [formControl]="theaterNameControl">
+        <input matInput [formControl]="theaterNameCtrl">
       </mat-form-field>
     </div>
     <div class="flex action">
@@ -62,3 +62,4 @@
     </div>
   </form>
 </section>
+<footer>{{showFormGroup.value | json}}</footer>

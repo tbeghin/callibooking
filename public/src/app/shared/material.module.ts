@@ -3,6 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
@@ -18,6 +19,7 @@ const MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatCardModule,
+  MatDialogModule,
   MatFormFieldModule,
   MatSelectModule,
   MatGridListModule,

@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
 import {Show} from '../../../models';
-import {routerActions} from '../../../store/actions';
+import {routerActions, showActions} from '../../../store/actions';
 import {RouterState, ShowState} from '../../../store/reducers';
 import {showSelectors} from '../../../store/selectors';
 
@@ -24,5 +24,11 @@ export class ShowListComponent implements OnInit {
 
   createShow() {
     this.routerStore.dispatch(routerActions.routerGo({path: ['spectacle/create']}));
+  }
+
+  deleteShow(id: string | undefined) {
+    if (!!id) {
+      this.showStore.dispatch(showActions.deleteShow({showId: id}));
+    }
   }
 }

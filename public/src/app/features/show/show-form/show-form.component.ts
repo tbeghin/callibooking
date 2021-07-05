@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {ShowState} from '../../../store/reducers';
 import {showActions} from '../../../store/actions';
-import {Show} from '../../../models';
+import {Piece, Show, Theater} from '../../../models';
+import {pieceSelectors} from '../../../store/selectors/piece.selectors';
+import {theaterSelectors} from '../../../store/selectors/theater.selectors';
 
 @Component({
   selector: 'app-show-form',
@@ -11,26 +14,50 @@ import {Show} from '../../../models';
   styleUrls: ['./show-form.component.scss']
 })
 export class ShowFormComponent implements OnInit {
-  showNewPiece: boolean;
-  showNewTheater: boolean;
+  selectPieceDisabled: boolean;
+  selectTheaterDisabled: boolean;
+  pieces$: Observable<Piece[]>;
+  theater$: Observable<Theater[]>;
   showFormGroup: FormGroup;
   dateControl: FormControl;
-  pieceTitleControl: FormControl;
-  pieceDescriptionControl: FormControl;
-  theaterNameControl: FormControl;
+  pieceGroup: FormGroup;
+  pieceCtrl: FormControl;
+  pieceIdCtrl: FormControl;
+  pieceTitleCtrl: FormControl;
+  pieceDescriptionCtrl: FormControl;
+  theaterGroup: FormGroup;
+  theaterCtrl: FormControl;
+  theaterIdCtrl: FormControl;
+  theaterNameCtrl: FormControl;
 
   constructor(private readonly showStore: Store<ShowState>) {
-    this.showNewPiece = false;
-    this.showNewTheater = false;
+    this.selectPieceDisabled = false;
+    this.selectTheaterDisabled = false;
+    this.pieces$ = this.showStore.select(pieceSelectors.allPieces);
+    this.theater$ = this.showStore.select(theaterSelectors.allTheaters);
     this.dateControl = new FormControl(null, Validators.required);
-    this.pieceTitleControl = new FormControl(null, Validators.required);
-    this.pieceDescriptionControl = new FormControl(null, Validators.required);
-    this.theaterNameControl = new FormControl(null, Validators.required);
+    this.pieceCtrl = new FormControl(null);
+    this.pieceIdCtrl = new FormControl(null);
+    this.pieceTitleCtrl = new FormControl(null);
+    this.pieceDescriptionCtrl = new FormControl(null);
+    this.pieceGroup = new FormGroup({
+      id: this.pieceIdCtrl,
+      title: this.pieceTitleCtrl,
+      description: this.pieceDescriptionCtrl,
+      piece: this.pieceCtrl
+    });
+    this.theaterCtrl = new FormControl(null);
+    this.theaterIdCtrl = new FormControl(null);
+    this.theaterNameCtrl = new FormControl(null);
+    this.theaterGroup = new FormGroup({
+      id: this.theaterIdCtrl,
+      name: this.theaterNameCtrl,
+      theater: this.theaterCtrl
+    });
     this.showFormGroup = new FormGroup({
       dateControl: this.dateControl,
-      pieceTitleControl: this.pieceTitleControl,
-      pieceDescriptionControl: this.pieceDescriptionControl,
-      theaterNameControl: this.theaterNameControl,
+      piece: this.pieceGroup,
+      theater: this.theaterGroup,
     });
   }
 
@@ -41,10 +68,21 @@ export class ShowFormComponent implements OnInit {
     if (this.showFormGroup.valid) {
       const show: Show = {
         date: this.dateControl.value,
-        piece: {title: this.pieceTitleControl.value, description: this.pieceDescriptionControl.value},
-        theater: {name: this.theaterNameControl.value}
+        piece: this.pieceCtrl.value || {title: this.pieceTitleCtrl.value, description: this.pieceDescriptionCtrl.value},
+        theater: this.theaterCtrl.value || {name: this.theaterNameCtrl.value}
       };
       this.showStore.dispatch(showActions.saveShow({show}));
+    }
+  }
+
+  showAdd(isPiece: boolean | null, isTheater: boolean | null, control: FormControl) {
+    this.selectPieceDisabled = isPiece === null ? this.selectPieceDisabled : isPiece;
+    this.selectTheaterDisabled = isTheater === null ? this.selectTheaterDisabled : isTheater;
+    if (isPiece || isTheater) {
+      control.reset();
+      control.disable();
+    } else {
+      control.enable();
     }
   }
 }

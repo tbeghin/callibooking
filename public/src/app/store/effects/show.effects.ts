@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {EMPTY} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {ConfirmModalComponent} from '../../modals/confirm-modal/confirm-modal.component';
 
 import {ShowRequest} from '../../models';
 import {PieceService} from '../../services/piece.service';
@@ -43,12 +46,30 @@ export class ShowEffects {
     )
   );
 
+  deleteShow$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(showActions.deleteShow),
+      switchMap(({showId}) => this.dialog.open(ConfirmModalComponent, {data: showId}).afterClosed()),
+      switchMap((showId: string) => !!showId ? [showActions.confirmDeleteShow({showId})] : EMPTY)
+    )
+  );
+
+  confirmDeleteShow$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(showActions.confirmDeleteShow),
+      switchMap(({showId}) => this.showService.deleteShow(showId)),
+      map(() => this.snackBar.open('Spectacle supprimé', '', {duration: 5000})),
+      map(() => routerActions.routerGo({path: ['spectacle']}))
+    )
+  );
+
   constructor(
     private readonly actions$: Actions,
     private readonly pieceService: PieceService,
     private readonly theaterService: TheaterService,
     private readonly showService: ShowService,
     private readonly snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
   }
 }

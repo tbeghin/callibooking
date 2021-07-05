@@ -6,15 +6,42 @@
   .mat-card {
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
     max-width: 32rem;
-    margin: 0 1rem 1rem 1rem;
+    margin: 1rem 1rem 0 1rem;
 
     .mat-card-header {
       flex: 0 0 auto;
+
+      ::ng-deep {
+        .mat-card-header-text {
+          width: 100%;
+
+          .mat-card-title {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+              display: flex;
+              align-items: center;
+            }
+
+            button {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+            }
+          }
+        }
+      }
     }
 
     .mat-card-content {
       flex: 1 1 auto;
+
+      p {
+        text-align: justify;
+      }
     }
 
     .mat-card-actions {
@@ -23,4 +50,5 @@
       justify-content: space-around;
     }
   }
+
 }

@@ -9,7 +9,10 @@ export type ShowEntityState = EntityState<ShowRequest>;
 export type PieceEntityState = EntityState<Piece>;
 export type TheaterEntityState = EntityState<Theater>;
 
-export const showAdapter = createEntityAdapter<ShowRequest>();
+export const showAdapter = createEntityAdapter<ShowRequest>({
+  sortComparer: (a: ShowRequest, b: ShowRequest): number =>
+    a.date.toMillis() > b.date.toMillis() ? 1 : a.date.toMillis() < b.date.toMillis() ? -1 : 0
+});
 export const pieceAdapter = createEntityAdapter<Piece>();
 export const theaterAdapter = createEntityAdapter<Theater>();
 

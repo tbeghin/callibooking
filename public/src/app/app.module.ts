@@ -9,6 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FirebaseModule} from './shared/firebase.module';
 import {MaterialModule} from './shared/material.module';
+import {ModalModule} from './shared/modal.module';
 import {NgrxModule} from './shared/ngrx.module';
 
 registerLocaleData(localeFr, 'fr');
@@ -23,6 +24,7 @@ registerLocaleData(localeFr, 'fr');
     AppRoutingModule,
     FirebaseModule,
     MaterialModule,
+    ModalModule,
     NgrxModule,
   ],
   providers: [
