@@ -1,0 +1,32 @@
+header{
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+
+  h1.title {
+    padding: 0 2rem;
+    background-color: #646cff;
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 4rem;
+    min-width: 8rem;
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: -4rem;
+      background-color: transparent;
+      border-style: solid;
+      border-color: transparent transparent transparent #646cff;
+      border-width: 4rem 0 0 4rem;
+    }
+  }
+
+  .action {
+    gap: 0.5rem;
+  }
+}
